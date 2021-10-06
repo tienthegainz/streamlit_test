@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import os
 from json import loads
+import random
 
 plotly_custom_component = components.declare_component(
     'plotly_custom_component', url='http://localhost:3001'
@@ -140,10 +141,13 @@ def main():
             'count': _selected_point['y'],
             'file': _selected_point['group']
         }
-
-        st.write("Selected data:")
-        st.write(selected_point)
-        load_video()
+        with st.container():
+            st.write('Selected data:', selected_point)
+            st.header('Video list')
+            # List video
+            for i in range(random.randint(1, 5)):
+                with st.expander('{file}_{i}'.format(file=selected_point['file'], i=i)):
+                    load_video()
 
 
 if __name__ == '__main__':
